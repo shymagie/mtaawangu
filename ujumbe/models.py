@@ -26,7 +26,7 @@ class UjumbeUliotumwa(models.Model):
     mjumbe = models.ForeignKey(Mjumbe, on_delete=models.CASCADE, null=True, related_name="zilizotumwa_mjumbe")
     ujumbe = models.TextField(null=True)
     nambari_ya_simu = models.CharField(max_length=80, null=True, blank=True)
-    is_deliverd = models.BooleanField(default=False)
+    is_delivered = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now=True)
 
     class Meta:

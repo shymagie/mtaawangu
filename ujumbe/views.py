@@ -328,9 +328,9 @@ def hifadhi_jumbe_zilizotumwa_ajax(request):
         nambari_ya_simu = request.POST.get('nambari_ya_simu')
         status = request.POST.get('status')
         print(nambari_ya_simu)
-        is_deliverd = False 
+        is_delivered = False 
         if status == "Delivered":
-            is_deliverd = True
-        ujumbe_data = ujumbe_models.UjumbeUliotumwa.objects.create(ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_deliverd=is_deliverd)
+            is_delivered = True
+        ujumbe_data = ujumbe_models.UjumbeUliotumwa.objects.create(ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_delivered=is_delivered)
         return JsonResponse({})
     
