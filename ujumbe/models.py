@@ -32,5 +32,5 @@ class UjumbeUliotumwa(models.Model):
         verbose_name_plural = 'jumbeZilizotumwa'
 
 
-    # def __str__(self):
-    #     return self.date_created
+    def __str__(self):
+        return self.nambari_ya_simu
