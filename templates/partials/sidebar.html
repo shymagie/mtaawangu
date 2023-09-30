@@ -1,0 +1,41 @@
+{% load static %}
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+    <div id="sidebar-menu" class="sidebar-menu">
+    <ul>
+        
+      
+        <!-- ujumbe zone -->
+        
+        <li class="submenu">
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Ujumbe</span> <span class="menu-arrow"></span></a>
+            <ul>
+                <li class=""><a href="{% url 'orodha-ya-jumbe' %}"><span>jumbe zilizotumwa</span> </a></li>
+                <li class=""><a href="{% url 'jumbe-zilizotumwa' %}"><span>jumbe zilizofanikiwa</span> </a></li>
+                <li class=""><a href=""><span>jumbe hazikufanikiwa</span> </a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Vitendea kazi</span> <span class="menu-arrow"></span></a>
+            <ul>
+                <li class=""><a href="#"><span>Sajiri Nchi</span> </a></li>
+                <li class=""><a href="{% url 'sajiri-mkoa' %}"><span>Sajiri Mkoa</span> </a></li>
+                <li class=""><a href="#"><span>Sajiri Wilaya</span> </a></li>
+                <li class=""><a href="#"><span>Sajiri Tarafa</span> </a></li>
+                <li class=""><a href="{% url 'sajiri-kata' %}"><span>Sajiri Kata</span> </a></li>
+                <li class=""><a href=""><span>Sajiri Mtaa</span> </a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Wananchi</span> <span class="menu-arrow"></span></a>
+            <ul>
+                <li class=""><a href="{% url 'sajiri-mwananchi' %}"><span>Sajiri Mwananchi</span> </a></li>
+                <li class=""><a href="{% url 'orodha-ya-wananchi' %}"><span>Orodha ya Wananchi</span> </a></li>
+                <li class=""><a href="orodha-ya-wananchi"><span>wananchi waliohamia</span> </a></li>
+               
+            </ul>
+        </li>
+    </ul>
+    </div>
+    </div>
+</div>

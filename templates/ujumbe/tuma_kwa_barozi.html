@@ -1,0 +1,55 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block title %}Chagua kata kutuma ujumbe{% endblock %}
+
+{% block page %}Chagua kata{% endblock page %}
+{% block slogan %}Chagua kata kutuma ujumbe{% endblock slogan %}    
+ 
+{% block style %}
+    <style>
+        .hide-accept-form {
+            display: none;
+        }
+        .hide-response-form {
+            display: none;
+        }
+        .hide-add-form {
+            display: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+<div class="card">
+<div class="card-body">
+    {% include 'partials/_messages.html' %}
+    <form action="{% url 'tuma-ujumbe-kwa-barozi' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                <label>Chagua Barozi</label>
+                  <select required name="barozi" id="id_barozi" class="form-control">
+                  {% for obj in barozi %}
+                    <option name="barozi" value="{{obj}}" class="form-control">{{obj}}</option>
+                  {% endfor %}
+                </select>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <button type="submit" class="btn btn-submit me-2">ENDELEA</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+  
+</script>
+{% endblock %}

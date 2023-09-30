@@ -1,0 +1,64 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block title %}Sajiri kata Mpya{% endblock %}
+
+{% block page %}Sajiri kata Mpya{% endblock page %}
+{% block slogan %}Sajiri kata Mpya{% endblock slogan %}    
+ 
+{% block style %}
+    <style>
+        .hide-accept-form {
+            display: none;
+        }
+        .hide-response-form {
+            display: none;
+        }
+        .hide-add-form {
+            display: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+<div class="card">
+<div class="card-body">
+    {% include 'partials/_messages.html' %}
+    <form action="{% url 'sajiri-kata' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                    <label>Jina</label>
+                    <input type="text"  name="jina">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                <label>Wilaya</label>
+                    <select required name="wilaya" id="id_wilaya" class="form-control">
+                        {% for obj in wilaya %}
+                            <option name="wilaya" value="{{obj.id}}" class="form-control">{{obj}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+           
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <button type="submit" class="btn btn-submit me-2">Sajiri</button>
+                <button type="reset" class="btn btn-cancel">Safisha fomu</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+
+</script>
+{% endblock %}

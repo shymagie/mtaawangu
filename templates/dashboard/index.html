@@ -1,0 +1,239 @@
+{% extends 'base/index.html' %}
+{% load static %}
+{% block title %}my console{% endblock %}
+{% block content %}
+
+<!-- <div class="row">
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash1.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
+<h6>Total Purchase Due</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash1">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash2.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="4385.00">$4,385.00</span></h5>
+<h6>Total Sales Due</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash2">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash3.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="385656.50">385,656.50</span></h5>
+<h6>Total Sale Amount</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash3">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash4.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="40000.00">400.00</span></h5>
+<h6>Total Sale Amount</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Customers</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="user"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das1">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Suppliers</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="user-check"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das2">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Purchase Invoice</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="file-text"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das3">
+<div class="dash-counts">
+<h4>105</h4>
+<h5>Sales Invoice</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="file"></i>
+</div>
+</div>
+</div>
+</div> -->
+
+
+<div class="row">
+<div class="col-lg-12 col-sm-12 col-12 d-flex">
+<div class="card flex-fill">
+
+<div class="card-body">
+    
+    <div class="row">
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-1"></canvas> </div>
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-2"></canvas> </div>
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-3"></canvas> </div>
+    </div>
+   
+</div>
+</div>
+</div>
+
+</div>
+<div class="card">
+    <div class="card-body">
+    <div class="table-top">
+    <div class="search-set">
+    <div class="search-path">
+    <a class="btn btn-filter" id="filter_search">
+        <img src="{% static 'assets/img/icons/filter.svg' %}" alt="img">
+        <span><img src="{% static 'assets/img/icons/closes.svg' %}" alt="img"></span>
+    </a>
+    </div>
+    <div class="search-input">
+    <a class="btn btn-searchset"><img src="{% static 'assets/img/icons/search-white.svg' %}" alt="img"></a>
+    </div>
+        {% include 'partials/_messages.html' %}
+    </div>
+    <div class="wordset">'
+    <ul>
+    <li>
+    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="{% static 'assets/img/icons/pdf.svg' %}" alt="img"></a>
+    </li>
+    <li>
+    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="{% static 'assets/img/icons/excel.svg' %}" alt="img"></a>
+    </li>
+    <li>
+    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{% static 'assets/img/icons/printer.svg' %}" alt="img"></a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    
+    <div class="card mb-0" id="filter_inputs">
+    <div class="card-body pb-0">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 d-flex justify-content-between">
+            <div class="form-group">
+                <select name="status" id="id_status" class="form-control">
+                    <option value="arrived" class="form-control">arrived</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <input type="date" id="id_date" name="date" placeholder="Date" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="time" name="time" id="id_time" placeholder="Time" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <input name="note" id="id_note"  placeholder="Note" class="form-control">
+            </div>
+            <div class="form-group">
+                <select name="terminal" id="id_terminal" class="form-control">
+                    <option value="CAN - Guanzhou">CAN - Guanzhou</option>
+                    <option value="HKG - HongKong">HKG - HongKong</option>
+                    <option value="DAR - Dar es salaam">DAR - Dar es salaam</option>
+                    <option value="DXB - Dubai">DXB - Dubai</option>
+                    <option value="NBO - Nairobi">NBO - Nairobi</option>
+                    <option value="SHJ - Sharjah">SHJ - Sharjah</option>
+                    <option value="JNB - Johanesburg">JNB - Johanesburg</option>
+                    <option value="MCT - Muscat">MCT - Muscat</option>
+                    <option value="BOM - Mumbai">BOM - Mumbai</option>
+                    <option value="ADD - Addis Ababa">ADD - Addis Ababa</option>
+                </select>
+                
+            </div>
+            <div class="update-btn ml-3">
+                <button type="submit" id="arrived_btn" class="btn btn-danger add_arrived_status" >save</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+    <div class="table-responsive">
+    <table class="table  datanew">
+    <thead>
+    <tr>
+    <th>
+    <label class="checkboxs">
+    <input type="checkbox" id="select-all">
+    <span class="checkmarks"></span>
+    </label>
+    </th>
+    <th>Jina</th>
+    <th>Ubarozi</th>
+    <th>Mtaa </th>
+    <th>Kata</th>
+    <th>Mkoa</th>
+    <th>Wilaya</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for pc in pcs %}
+    <tr>
+    <td>
+    <label class="checkboxs">
+    <input type="checkbox" name="awb_id[]" value="{{pc.id}}" id="arrived_status" class="arrived_status">
+    <span class="checkmarks"></span>
+    </label>
+    </td>
+    <td class="productimgname">
+        <a href="{% url 'parcel_view' pc.id %}">{{pc.receiver_name}}</a>
+    </td>
+    <td>{{pc.awb}}</td>
+    <td>{{pc.order_number}}</td>
+    <td>{{pc.awb_pcs}}</td>
+    <td>{{pc.awb_kg}}</td>
+    <td>
+    <a class="me-3" href="{% url 'parcel_view' pc.id %}">
+    <img src="{% static 'assets/img/icons/edit.svg' %}" alt="img">
+    </a>
+  
+    <a class="confirm-text" href="{% url 'delete-awb' pc.id %}">
+    <img src="{% static 'assets/img/icons/delete.svg' %}" alt="img">
+    </a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}{% endblock %}
