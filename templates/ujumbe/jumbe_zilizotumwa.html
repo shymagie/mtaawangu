@@ -132,9 +132,6 @@
     <span class="checkmarks"></span>
     </label>
     </td>
-    <td class="productimgname">
-        <a href="">{{pc.receiver_name}}</a>
-    </td>
     <td>{{pc.nambari_ya_simu}}</td>
     <td>{{pc.ujumbe}}</td>
     {% if pc.is_delivered %}
@@ -142,6 +139,7 @@
     {% else %}
     <td>Sent</td>
     {% endif %}
+    <td>{{pc.date_created}}</td>
     </tr>
     {% endfor %}
     </tbody>

@@ -18,7 +18,8 @@ class Ujumbe(models.Model):
         verbose_name_plural = 'Jumbe'
 
 
-
+    def __str__(self):
+        return f'{self.date_created}'
 
 class UjumbeUliotumwa(models.Model):
     mtendaji = models.ForeignKey(Mtendaji, on_delete=models.CASCADE, null=True, related_name="zilizotumwa_mtendaji")
@@ -33,4 +34,4 @@ class UjumbeUliotumwa(models.Model):
 
 
     def __str__(self):
-        return self.nambari_ya_simu
+        return f'{self.date_created}'

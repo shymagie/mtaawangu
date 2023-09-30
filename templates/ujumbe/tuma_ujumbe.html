@@ -81,12 +81,12 @@
                 'ujumbe': ujumbeInput.value
             },
             success: function(response){
-                console.log(response.data)
+                // console.log(response.data)
                 data = response.data
                 messageForm.reset()
                 data.map(item => {
                     dataFormset = item
-                    console.log(dataFormset)
+                    // console.log(dataFormset)
                     $.ajax({
                     type: 'POST',
                     url: '/hifadhi-jumbe-zilizotumwa-ajax/',

@@ -122,7 +122,7 @@ def orodha_ya_jumbe(request):
 
 
 def orodha_ya_jumbe_zilizotumwa(request):
-    jumbe = ujumbe_models.Ujumbe.objects.all()
+    jumbe = ujumbe_models.UjumbeUliotumwa.objects.all()
     context = {
         'jumbe': jumbe,
     }
