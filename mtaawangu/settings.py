@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'mtaawangu.urls'
@@ -93,9 +94,9 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'railway',
 #         'USER': 'postgres',
-#         'PASSWORD': 'Qyum66QG55bIBPyYxkkJ',
-#         'HOST': 'containers-us-west-57.railway.app',
-#         'PORT': '7946',
+#         'PASSWORD': 'dLQOQInhdmNQq8pEZypY',
+#         'HOST': 'containers-us-west-140.railway.app',
+#         'PORT': '6171',
 #     }
 # }
 
@@ -146,6 +147,9 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE ='whitenoise.storage.StaticFilesStorage'
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
