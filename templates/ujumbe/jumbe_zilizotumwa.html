@@ -124,7 +124,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for pc in pcs %}
+    {% for pc in jumbe %}
     <tr>
     <td>
     <label class="checkboxs">
@@ -135,9 +135,13 @@
     <td class="productimgname">
         <a href="">{{pc.receiver_name}}</a>
     </td>
-    <td>{{pc.awb}}</td>
-    <td>{{pc.order_number}}</td>
-    <td>{{pc.awb_pcs}}</td>
+    <td>{{pc.nambari_ya_simu}}</td>
+    <td>{{pc.ujumbe}}</td>
+    {% if pc.is_delivered %}
+    <td>Received</td>
+    {% else %}
+    <td>Sent</td>
+    {% endif %}
     </tr>
     {% endfor %}
     </tbody>
