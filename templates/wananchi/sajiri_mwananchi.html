@@ -64,7 +64,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                 <label>Wilaya</label>
-                    <select required name="wilaya" id="id_wilaya" class="form-control">
+                    <select name="wilaya" id="id_wilaya" class="form-control">
                         <option value="" class="disabled" id="chagua-wilaya">------chagua wilaya------</option>
                     </select>
                 </div>
@@ -73,7 +73,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                 <label>Chagua Kata</label>
-                  <select required name="kata" id="id_kata" class="form-control">
+                  <select name="kata" id="id_kata" class="form-control">
                     <option value="" class="disabled" id="chagua-kata">------chagua kata------</option>
                 </select>
                 </div>
@@ -82,7 +82,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                 <label>Chagua Mtaa</label>
-                  <select required name="mtaa" id="id_mtaa" class="form-control">
+                  <select name="mtaa" id="id_mtaa" class="form-control">
                     <option value="" class="disabled" id="chagua-mtaa">------chagua mtaa------</option>
                 </select>
                 </div>
@@ -92,7 +92,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                 <label>Chagua Ubarozi</label>
-                  <select required name="ubarozi" id="id_ubarozi" class="form-control">
+                  <select name="ubarozi" id="id_ubarozi" class="form-control">
                     <option value="" class="disabled" id="chagua-ubarozi">------chagua ubarozi------</option>
                 </select>
                 </div>
@@ -147,7 +147,7 @@
             let mikoaId = e.target.value
             wilaya_input.innerHTML = "";
             const title = document.createElement('option')
-            title.textContent = "--------Chagua kata---------"
+            title.textContent = "--------Chagua wilaya---------"
             wilaya_input.appendChild(title)
             $.ajax({
             type: 'POST',
@@ -176,7 +176,6 @@
 
 
         wilaya_input.addEventListener('change', function(e){
-            console.log(e.target.value)
             let mikoaId = e.target.value
             kata_input.innerHTML = "";
             const title = document.createElement('option')

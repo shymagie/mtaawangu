@@ -19,7 +19,7 @@ class UjumbeWaTangazo(models.Model):
     date_created = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'Jumbe'
+        verbose_name_plural = 'JumbeZaMatangazo'
 
 
     def __str__(self):
@@ -35,7 +35,7 @@ class UjumbeWaTangazoUlioFika(models.Model):
     date_created = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'UumbeZaTangazoZilizoFika'
+        verbose_name_plural = 'JumbeZaTangazoZilizoFika'
 
 
     def __str__(self):

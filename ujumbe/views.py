@@ -123,7 +123,7 @@ def wilaya_na_ajax(request):
         mkoa_id = request.POST.get('mkoa_id')
         mkoa = Mkoa.objects.get(id=mkoa_id)
         wilaya = mkoa.wilaya_mikoa.all()
-        print(wilaya)
+       
         data = []
         for obj in wilaya:
             item = {
@@ -141,7 +141,7 @@ def kata_na_ajax(request):
         wilaya_id = request.POST.get('wilaya_id')
         wilaya = Wilaya.objects.get(id=wilaya_id)
         kata = wilaya.kata_wilaya.all()
-        print(wilaya)
+       
         data = []
         for obj in kata:
             item = {
@@ -190,6 +190,7 @@ def ubarozi_na_ajax(request):
 
 
 def hifadhi_mwananchi(request):
+    mataifa = Nchi.objects.all()
     if request.method == "POST":
         jina = request.POST.get('jina')
         nambari_ya_simu = request.POST.get('nambari_ya_simu')
@@ -199,6 +200,31 @@ def hifadhi_mwananchi(request):
         kata_id = request.POST.get('kata')
         mtaa_id = request.POST.get('mtaa')
         ubarozi_id = request.POST.get('ubarozi')
+
+        if not jina:
+            messages.success(request, f'Tafadhali jaza jina')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+        if not nambari_ya_simu:
+            messages.success(request, f'Tafadhali jaza nambari ya simu')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+
+        if ubarozi_id == '--------Chagua ubarozi---------':
+            messages.success(request, f'Tafadhali chagua ubarozi')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+        if wilaya_id == '--------Chagua wilaya---------':
+            messages.success(request, f'Tafadhali chagua wilaya')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+        if kata_id == '--------Chagua kata---------':
+            messages.success(request, f'Tafadhali chagua kata')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+        if mtaa_id == '--------Chagua mtaa---------':
+            messages.success(request, f'Tafadhali chagua mtaa')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
 
         nchi = Nchi.objects.get(id=nchi_id)
         mkoa = Mkoa.objects.get(id=mkoa_id)

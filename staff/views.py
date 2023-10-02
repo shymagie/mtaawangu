@@ -8,7 +8,7 @@ from users.models import (
     Nchi, Wilaya, Mkoa, Mtendaji,
     Kata, Mtaa, Mjumbe, Mwananchi, NyumbaKumi, Mwenyekiti
 )
-from ujumbe import models as tangazo_models
+from staff import models as tangazo_models
 from accounts.decorators import allowed_user, staff_tu
 from ujumbe.fomu import FomuYaKutumaUjumbe
 
@@ -51,7 +51,7 @@ def tuma_kwa_barozi(request):
 @login_required
 @staff_tu
 def orodha_ya_jumbe(request):
-    jumbe = tangazo_models.Ujumbe.objects.all()
+    jumbe = tangazo_models.UjumbeWaTangazo.objects.all()
     context = {
         'jumbe': jumbe,
     }
@@ -60,7 +60,7 @@ def orodha_ya_jumbe(request):
 @login_required
 @staff_tu
 def orodha_ya_jumbe_zilizotumwa(request):
-    jumbe = tangazo_models.UjumbeUliotumwa.objects.all()
+    jumbe = tangazo_models.UjumbeWaTangazoUlioFika.objects.all()
     context = {
         'jumbe': jumbe,
     }
@@ -158,5 +158,5 @@ def hifadhi_jumbe_zilizotumwa_ajax(request):
         is_delivered = False 
         if status == "Delivered":
             is_delivered = True
-        ujumbe_data = tangazo_models.UjumbeWaTangazoUlioFika.objects.create(ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_delivered=is_delivered, utambulisho_wa_ujumbe=utu, user=request.user)
+        ujumbe_data = tangazo_models.UjumbeWaTangazoUlioFika.objects.create(ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_delivered=is_delivered, utambulisho_wa_ujumbe=uid, user=request.user)
         return JsonResponse({})
