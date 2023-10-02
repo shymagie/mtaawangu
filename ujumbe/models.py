@@ -11,6 +11,7 @@ from users.models import (
 class Ujumbe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="ujumbe_user")
     ujumbe = models.TextField()
+    kata = models.ForeignKey(Kata, on_delete=models.CASCADE, null=True)
     wapokeaji = models.CharField(max_length=80, null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True)
 
@@ -24,6 +25,7 @@ class Ujumbe(models.Model):
 class UjumbeUliotumwa(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="zilizotumwa_user")
     ujumbe = models.TextField(null=True)
+    kata = models.ForeignKey(Kata, on_delete=models.CASCADE, null=True)
     utambulisho_wa_ujumbe = models.CharField(max_length=255, null=True)
     nambari_ya_simu = models.CharField(max_length=80, null=True, blank=True)
     is_delivered = models.BooleanField(default=False)

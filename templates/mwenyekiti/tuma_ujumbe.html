@@ -93,7 +93,7 @@
         e.preventDefault()
         $.ajax({
             type: 'POST',
-            url: '/mtendaji-jumbe/tuma-ujumbe/',
+            url: '/mwenyekiti-jumbe/tuma-ujumbe/',
             data: {
                 'csrfmiddlewaretoken': csrftoken,
                 'wapokeaji': wapokeajiInput,
@@ -108,7 +108,7 @@
                     // console.log(dataFormset)
                     $.ajax({
                     type: 'POST',
-                    url: '/mtendaji-hifadhi-jumbe-zilizotumwa-ajax/',
+                    url: '/mwenyekiti-hifadhi-jumbe-zilizotumwa-ajax/',
                     data: {
                         'csrfmiddlewaretoken': csrftoken,
                         'ujumbe': item.message,

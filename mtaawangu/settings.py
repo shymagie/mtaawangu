@@ -35,6 +35,9 @@ CSRF_TRUSTED_ORIGINS = ["https://mtaawangu.up.railway.app", "http://127.0.0.1"]
 INSTALLED_APPS = [
     'users',
     'ujumbe',
+    'mwenyekiti',
+    'mjumbe',
+    'staff',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

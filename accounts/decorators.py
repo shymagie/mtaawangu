@@ -37,7 +37,8 @@ def mtendaji_tu(view_func):
             return redirect('mjumbe-dashibodi')
         elif group == 'mwenyekiti' and request.user.is_active:
             return redirect('mwenyekiti-dashibodi')
-        
+        elif request.user.is_staff and request.user.is_active:
+            return redirect('staff-dashibodi')
         elif group == 'mtendaji' and request.user.is_active:
             return view_func(request, *args, **kwargs)
         else:
@@ -55,6 +56,8 @@ def mwenyekiti_tu(view_func):
             return redirect('mtendaji-dashibodi')
         elif group == 'mjumbe' and request.user.is_active:
             return redirect('mjumbe-dashibodi')
+        elif request.user.is_staff and request.user.is_active:
+            return redirect('staff-dashibodi')
         elif group == 'mwenyekiti' and request.user.is_active:
             return view_func(request, *args, **kwargs)
         else:
@@ -72,7 +75,28 @@ def mjumbe_tu(view_func):
             return redirect('mtendaji-dashibodi')
         elif group == 'mwenyekiti' and request.user.is_active:
             return redirect('mwenyekiti-dashibodi')
+        elif request.user.is_staff and request.user.is_active:
+            return redirect('staff-dashibodi')
         elif group == 'mjumbe' and request.user.is_active:
+            return view_func(request, *args, **kwargs)
+        else:
+            return redirect('ingia')
+    return wrapper_func
+
+
+
+def staff_tu(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+        if group == 'mjumbe' and request.user.is_active:
+            return redirect('mjumbe-dashibodi')
+        elif group == 'mwenyekiti' and request.user.is_active:
+            return redirect('mwenyekiti-dashibodi')
+        elif group == 'mtendaji' and request.user.is_active:
+            return redirect('mtendaji-dashibodi')
+        elif request.user.is_staff and request.user.is_active:
             return view_func(request, *args, **kwargs)
         else:
             return redirect('ingia')

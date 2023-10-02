@@ -85,7 +85,131 @@ def orodha_ya_nchi(request):
 
 
 def dashboard(request):
-    return render(request, 'dashboard/index.html', {})
+    return render(request, 'dashboard/mtendaji.html', {})
+
+
+
+
+
+def kusajiri_mwananchi(request):
+    mataifa = Nchi.objects.all()
+    return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+
+def orodha_ya_wananchi(request):
+    wananchi = Mwananchi.objects.all()
+    return render(request, 'wananchi/orodha_ya_wananchi.html', {'wananchi': wananchi})
+
+
+
+def mikoa_na_ajax(request):
+    if request.method == "POST":
+        nchi_id = request.POST.get('nchi_id')
+        nchi = Nchi.objects.get(id=nchi_id)
+        mikoa = nchi.mkoa_ya_nchi.all()
+
+        data = []
+        for obj in mikoa:
+            item = {
+                'id': obj.id,
+                'jina': obj.jina
+            }
+            data.append(item)
+        
+        return JsonResponse({'mikoa': data})
+
+
+def wilaya_na_ajax(request):
+    if request.method == "POST":
+        mkoa_id = request.POST.get('mkoa_id')
+        mkoa = Mkoa.objects.get(id=mkoa_id)
+        wilaya = mkoa.wilaya_mikoa.all()
+        print(wilaya)
+        data = []
+        for obj in wilaya:
+            item = {
+                'id': obj.id,
+                'jina': obj.jina
+            }
+            data.append(item)
+        
+        return JsonResponse({'wilaya': data})
+
+
+
+def kata_na_ajax(request):
+    if request.method == "POST":
+        wilaya_id = request.POST.get('wilaya_id')
+        wilaya = Wilaya.objects.get(id=wilaya_id)
+        kata = wilaya.kata_wilaya.all()
+        print(wilaya)
+        data = []
+        for obj in kata:
+            item = {
+                'id': obj.id,
+                'jina': obj.jina
+            }
+            data.append(item)
+        
+        return JsonResponse({'kata': data})
+
+
+
+def mtaa_na_ajax(request):
+    if request.method == "POST":
+        kata_id = request.POST.get('kata_id')
+        kata = Kata.objects.get(id=kata_id)
+        mitaa = kata.mitaa_kata.all()
+        print(mitaa)
+        data = []
+        for obj in mitaa:
+            item = {
+                'id': obj.id,
+                'jina': obj.jina
+            }
+            data.append(item)
+        
+        return JsonResponse({'mitaa': data})
+
+
+
+def ubarozi_na_ajax(request):
+    if request.method == "POST":
+        mtaa_id = request.POST.get('mtaa_id')
+        mtaa = Mtaa.objects.get(id=mtaa_id)
+        barozi = mtaa.barozi_mitaa.all()
+        print(barozi)
+        data = []
+        for obj in barozi:
+            item = {
+                'id': obj.id,
+                'jina': obj.jina
+            }
+            data.append(item)
+        
+        return JsonResponse({'barozi': data})
+
+
+def hifadhi_mwananchi(request):
+    if request.method == "POST":
+        jina = request.POST.get('jina')
+        nambari_ya_simu = request.POST.get('nambari_ya_simu')
+        nchi_id = request.POST.get('nchi')
+        mkoa_id = request.POST.get('mkoa')
+        wilaya_id = request.POST.get('wilaya')
+        kata_id = request.POST.get('kata')
+        mtaa_id = request.POST.get('mtaa')
+        ubarozi_id = request.POST.get('ubarozi')
+
+        nchi = Nchi.objects.get(id=nchi_id)
+        mkoa = Mkoa.objects.get(id=mkoa_id)
+        wilaya = Wilaya.objects.get(id=wilaya_id)
+        kata = Kata.objects.get(id=kata_id)
+        mtaa = Mtaa.objects.get(id=mtaa_id)
+        ubarozi = NyumbaKumi.objects.get(id=ubarozi_id)
+
+        mwananchi_data = Mwananchi.objects.create(jina=jina, nambari_ya_simu=nambari_ya_simu, nchi=nchi, mkoa=mkoa, wilaya=wilaya, kata=kata, mtaa=mtaa, barozi=ubarozi)
+        messages.success(request, f'{mwananchi_data} amesajiriwa kikamilifu')
+        return redirect('sajiri-mwananchi')
 
 
 

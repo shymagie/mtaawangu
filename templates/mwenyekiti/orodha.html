@@ -24,13 +24,13 @@
 
     </div>
     <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-kata' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa kata</a>
+        <a href="{% url 'mwenyekiti-tuma-kwa-kata' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa kata</a>
     </div>
     <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-mtaa' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa mtaa</a>
+        <a href="{% url 'mwenyekiti-tuma-kwa-mtaa' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa mtaa</a>
     </div>
     <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-barozi' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa ubarozi</a>
+        <a href="{% url 'mwenyekiti-tuma-kwa-barozi' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa ubarozi</a>
     </div>
 </div>
 
@@ -50,17 +50,6 @@
         {% include 'partials/_messages.html' %}
     </div>
     <div class="wordset">'
-    <ul>
-    <li>
-    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="{% static 'assets/img/icons/pdf.svg' %}" alt="img"></a>
-    </li>
-    <li>
-    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="{% static 'assets/img/icons/excel.svg' %}" alt="img"></a>
-    </li>
-    <li>
-    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{% static 'assets/img/icons/printer.svg' %}" alt="img"></a>
-    </li>
-    </ul>
     </div>
     </div>
     
@@ -140,42 +129,7 @@
 {% endblock %}
 {% block script %}
 <script>
-    $(document).ready(function(){
-    $('#arrived_btn').click(function(){
-        if(confirm('Are you sure you want to load awb')){
-            var id =[]
-            $('#arrived_status:checked').each(function(i){
-                id[i] = $(this).val()
-            })
-            if(id.length === 0){
-                alert('please select item')
-            }else {
-                console.log(id)
-                $.ajax({
-                    type: 'POST',
-                    url: '/sifex/arrived/',
-                    data: {
-                        'csrfmiddlewaretoken': csrftoken,
-                        id,
-                        'status': $('#id_status').val(),
-                        'date': $('#id_date').val(),
-                        'time': $('#id_time').val(),
-                        'note': $('#id_note').val(),
-                        'terminal': $('#id_terminal').val(),
-                        
-                    },
-                    
-                    success: function(res){
-                        // console.log(res)
-                        window.location = '/sifex/parcel_import/'
-                    },
-                    error: function(err){
-                        console.log(err)
-                    }
-                });
-            }
-        }
-    })
-})
+  
+  
 </script>
 {% endblock %}

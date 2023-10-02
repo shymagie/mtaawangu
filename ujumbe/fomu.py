@@ -9,5 +9,5 @@ class FomuYaKutumaUjumbe(ModelForm):
     class Meta:
         model = Ujumbe
         fields = '__all__'
-        exclude = ['mtendaji', 'mjumbe']
+        exclude = ['user', 'kata']
     

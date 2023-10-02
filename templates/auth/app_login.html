@@ -31,20 +31,20 @@
 </div>
 <div class="login-userheading">
 <h3>Sign In</h3>
-<h4>Please login to your account</h4>
+<h4>Tafadhali ingia kwenye akaunti yako!</h4>
     {% include 'partials/_messages.html' %}
 </div>
 <form action="{% url 'ingia' %}" method="post">
     {% csrf_token %}
     <div class="form-login">
-        <label>Username</label>
+        <label>Jina La Mtumiaji (Username)</label>
         <div class="form-addons">
         <input type="text" name="username" placeholder="Enter your username">
         <img src="{% static 'assets/img/icons/users1.svg' %}" alt="img">
         </div>
         </div>
         <div class="form-login">
-        <label>Password</label>
+        <label>Nywila (Password)</label>
         <div class="pass-group">
         <input type="password" name="password" class="pass-input" placeholder="Ingiza nenosiri" autocomplete="off">
         <span class="fas toggle-password fa-eye-slash"></span>
@@ -56,7 +56,7 @@
         </div>
         </div>
         <div class="form-login">
-        <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+        <button class="btn btn-primary btn-block" type="submit">Ingia</button>
         </div>
         <div class="signinform text-center">
             <h4>become a sponsor <a href="#" class="hover-a">Sign Up</a></h4>

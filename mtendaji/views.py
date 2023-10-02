@@ -21,7 +21,9 @@ def dashboard(request):
 @login_required
 @mtendaji_tu
 def tuma_kwa_mtaa(request):
-    mitaa = Mtaa.objects.all()
+    mtendaji = request.user.mtendaji
+    kata = mtendaji.kata
+    mitaa = kata.mitaa_kata.all()
     context = {
         'mitaa': mitaa,
     }
@@ -30,7 +32,9 @@ def tuma_kwa_mtaa(request):
 @login_required
 @mtendaji_tu
 def tuma_kwa_kata(request):
-    kata = Kata.objects.all()
+    mwenyekiti = request.user.mwenyekiti
+    kata_id = mwenyekiti.kata.id
+    kata = Kata.objects.get(id=kata_id)
     context = {
         'kata': kata,
     }
@@ -50,7 +54,9 @@ def tuma_kwa_barozi(request):
 @login_required
 @mtendaji_tu
 def orodha_ya_jumbe(request):
-    jumbe = ujumbe_models.Ujumbe.objects.all()
+    mtendaji = request.user.mtendaji
+    kata = mtendaji.kata
+    jumbe = ujumbe_models.Ujumbe.objects.filter(kata=kata)
     context = {
         'jumbe': jumbe,
     }
@@ -62,7 +68,9 @@ def orodha_ya_jumbe(request):
 @login_required
 @mtendaji_tu
 def orodha_ya_jumbe_zilizotumwa(request):
-    jumbe = ujumbe_models.UjumbeUliotumwa.objects.all()
+    mtendaji = request.user.mtendaji
+    kata = mtendaji.kata
+    jumbe = ujumbe_models.UjumbeUliotumwa.objects.filter(kata=kata)
     context = {
         'jumbe': jumbe,
     }
@@ -124,7 +132,8 @@ def tuma_ujumbe(request):
         form = FomuYaKutumaUjumbe(request.POST)
         wapokeaji = request.POST.get('wapokeaji')
         ujumbe = request.POST.get('ujumbe')
-       
+        mtendaji = request.user.mtendaji
+        kata = mtendaji.kata
        
         data = json.dumps({
             "recipient": wapokeaji,
@@ -141,8 +150,7 @@ def tuma_ujumbe(request):
         if response.status_code == 200:
             r = response.json()
             data = r['data']
-            print(data)
-            text_message = ujumbe_models.Ujumbe.objects.create(wapokeaji=wapokeaji, ujumbe=ujumbe)
+            text_message = ujumbe_models.Ujumbe.objects.create(kata=kata, user=request.user, wapokeaji=wapokeaji, ujumbe=ujumbe)
             messages.success(request, f'message success')
             return JsonResponse({'data': data})
         else:
@@ -151,150 +159,6 @@ def tuma_ujumbe(request):
     return render(request, 'ujumbe/tuma_ujumbe.html')
 
 
-
-@login_required
-@mtendaji_tu
-def kusajiri_mwananchi(request):
-    mataifa = Nchi.objects.all()
-    return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
-
-
-
-
-@login_required
-@mtendaji_tu
-def orodha_ya_wananchi(request):
-    wananchi = Mwananchi.objects.all()
-    return render(request, 'wananchi/orodha_ya_wananchi.html', {'wananchi': wananchi})
-
-
-
-@login_required
-@mtendaji_tu
-def mikoa_na_ajax(request):
-    if request.method == "POST":
-        nchi_id = request.POST.get('nchi_id')
-        nchi = Nchi.objects.get(id=nchi_id)
-        mikoa = nchi.mkoa_ya_nchi.all()
-
-        data = []
-        for obj in mikoa:
-            item = {
-                'id': obj.id,
-                'jina': obj.jina
-            }
-            data.append(item)
-        
-        return JsonResponse({'mikoa': data})
-
-
-
-
-@login_required
-@mtendaji_tu
-def wilaya_na_ajax(request):
-    if request.method == "POST":
-        mkoa_id = request.POST.get('mkoa_id')
-        mkoa = Mkoa.objects.get(id=mkoa_id)
-        wilaya = mkoa.wilaya_mikoa.all()
-        print(wilaya)
-        data = []
-        for obj in wilaya:
-            item = {
-                'id': obj.id,
-                'jina': obj.jina
-            }
-            data.append(item)
-        
-        return JsonResponse({'wilaya': data})
-
-
-
-
-@login_required
-@mtendaji_tu
-def kata_na_ajax(request):
-    if request.method == "POST":
-        wilaya_id = request.POST.get('wilaya_id')
-        wilaya = Wilaya.objects.get(id=wilaya_id)
-        kata = wilaya.kata_wilaya.all()
-        print(wilaya)
-        data = []
-        for obj in kata:
-            item = {
-                'id': obj.id,
-                'jina': obj.jina
-            }
-            data.append(item)
-        
-        return JsonResponse({'kata': data})
-
-
-
-@login_required
-@mtendaji_tu
-def mtaa_na_ajax(request):
-    if request.method == "POST":
-        kata_id = request.POST.get('kata_id')
-        kata = Kata.objects.get(id=kata_id)
-        mitaa = kata.mitaa_kata.all()
-        print(mitaa)
-        data = []
-        for obj in mitaa:
-            item = {
-                'id': obj.id,
-                'jina': obj.jina
-            }
-            data.append(item)
-        
-        return JsonResponse({'mitaa': data})
-
-
-
-
-@login_required
-@mtendaji_tu
-def ubarozi_na_ajax(request):
-    if request.method == "POST":
-        mtaa_id = request.POST.get('mtaa_id')
-        mtaa = Mtaa.objects.get(id=mtaa_id)
-        barozi = mtaa.barozi_mitaa.all()
-        print(barozi)
-        data = []
-        for obj in barozi:
-            item = {
-                'id': obj.id,
-                'jina': obj.jina
-            }
-            data.append(item)
-        
-        return JsonResponse({'barozi': data})
-
-
-
-@login_required
-@mtendaji_tu
-def hifadhi_mwananchi(request):
-    if request.method == "POST":
-        jina = request.POST.get('jina')
-        nambari_ya_simu = request.POST.get('nambari_ya_simu')
-        nchi_id = request.POST.get('nchi')
-        mkoa_id = request.POST.get('mkoa')
-        wilaya_id = request.POST.get('wilaya')
-        kata_id = request.POST.get('kata')
-        mtaa_id = request.POST.get('mtaa')
-        ubarozi_id = request.POST.get('ubarozi')
-
-        nchi = Nchi.objects.get(id=nchi_id)
-        mkoa = Mkoa.objects.get(id=mkoa_id)
-        wilaya = Wilaya.objects.get(id=wilaya_id)
-        kata = Kata.objects.get(id=kata_id)
-        mtaa = Mtaa.objects.get(id=mtaa_id)
-        ubarozi = NyumbaKumi.objects.get(id=ubarozi_id)
-
-        mwananchi_data = Mwananchi.objects.create(jina=jina, nambari_ya_simu=nambari_ya_simu, nchi=nchi, mkoa=mkoa, wilaya=wilaya, kata=kata, mtaa=mtaa, barozi=ubarozi)
-        messages.success(request, f'{mwananchi_data} amesajiriwa kikamilifu')
-        return redirect('sajiri-mwananchi')
 
 
 
@@ -306,8 +170,10 @@ def hifadhi_jumbe_zilizotumwa_ajax(request):
         uid = request.POST.get('utu')
         nambari_ya_simu = request.POST.get('nambari_ya_simu')
         status = request.POST.get('status')
+        mtendaji = request.user.mtendaji
+        kata = mtendaji.kata
         is_delivered = False 
         if status == "Delivered":
             is_delivered = True
-        ujumbe_data = ujumbe_models.UjumbeUliotumwa.objects.create(ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_delivered=is_delivered, utambulisho_wa_ujumbe=utu)
+        ujumbe_data = ujumbe_models.UjumbeUliotumwa.objects.create(kata=kata, ujumbe=ujumbe, nambari_ya_simu=nambari_ya_simu, is_delivered=is_delivered, utambulisho_wa_ujumbe=utu, user=request.user)
         return JsonResponse({})
