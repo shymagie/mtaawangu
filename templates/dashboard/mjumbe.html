@@ -1,39 +1,117 @@
 {% extends 'base/index.html' %}
-{% block title %}jumbe zilizotumwa{% endblock %}
 {% load static %}
-
-{% block page %}jumbe zilizotumwa{% endblock page %}
-{% block slogan %}jumbe zilizotumwa{% endblock slogan %} 
-
-{% block style %}
-    <style>
-        .hide-accept-form {
-            display: none;
-        }
-        .hide-response-form {
-            display: none;
-        }
-        .hide-add-form {
-            display: none;
-        }
-    </style>
-{% endblock %}
+{% block title %}mjumbe dashibodi{% endblock %}
 {% block content %}
-<div class="page-header">
-    <div class="page-title">
 
+<!-- <div class="row">
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash1.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
+<h6>Total Purchase Due</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash1">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash2.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="4385.00">$4,385.00</span></h5>
+<h6>Total Sales Due</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash2">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash3.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="385656.50">385,656.50</span></h5>
+<h6>Total Sale Amount</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12">
+<div class="dash-widget dash3">
+<div class="dash-widgetimg">
+<span><img src="assets/img/icons/dash4.svg" alt="img"></span>
+</div>
+<div class="dash-widgetcontent">
+<h5>$<span class="counters" data-count="40000.00">400.00</span></h5>
+<h6>Total Sale Amount</h6>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Customers</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="user"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das1">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Suppliers</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="user-check"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das2">
+<div class="dash-counts">
+<h4>100</h4>
+<h5>Purchase Invoice</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="file-text"></i>
+</div>
+</div>
+</div>
+<div class="col-lg-3 col-sm-6 col-12 d-flex">
+<div class="dash-count das3">
+<div class="dash-counts">
+<h4>105</h4>
+<h5>Sales Invoice</h5>
+</div>
+<div class="dash-imgs">
+<i data-feather="file"></i>
+</div>
+</div>
+</div>
+</div> -->
+
+
+<div class="row">
+<div class="col-lg-12 col-sm-12 col-12 d-flex">
+<div class="card flex-fill">
+
+<div class="card-body">
+    
+    <div class="row">
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-1"></canvas> </div>
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-2"></canvas> </div>
+        <div class="chart col-md-4 col-lg-4 col-sm-12"> <canvas id="chart-3"></canvas> </div>
     </div>
-    <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-kata' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa kata</a>
-    </div>
-    <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-mtaa' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa mtaa</a>
-    </div>
-    <div class="page-btn">
-        <a href="{% url 'mtendaji-tuma-kwa-barozi' %}" class="btn btn-added"><img src="{% static 'assets/img/icons/plus.svg' %}" alt="img" class="me-1">tuma kwa ubarozi</a>
-    </div>
+   
+</div>
+</div>
 </div>
 
+</div>
 <div class="card">
     <div class="card-body">
     <div class="table-top">
@@ -117,14 +195,16 @@
     <span class="checkmarks"></span>
     </label>
     </th>
-    <th>Utu (utambulisho wa ujumbe)</th>
-    <th>Nambari ya simu</th>
-    <th>Status </th>
-    <th>Tarehe</th>
+    <th>Jina</th>
+    <th>Ubarozi</th>
+    <th>Mtaa </th>
+    <th>Kata</th>
+    <th>Mkoa</th>
+    <th>Wilaya</th>
     </tr>
     </thead>
     <tbody>
-    {% for pc in jumbe %}
+    {% for pc in pcs %}
     <tr>
     <td>
     <label class="checkboxs">
@@ -132,14 +212,22 @@
     <span class="checkmarks"></span>
     </label>
     </td>
-    <td><a href="">{{pc.utambulisho_wa_ujumbe}}</a></td>
-    <td>{{pc.nambari_ya_simu}}</td>
-    {% if pc.is_delivered %}
-    <td>Umepokelewa</td>
-    {% else %}
-    <td>Sent</td>
-    {% endif %}
-    <td>{{pc.date_created}}</td>
+    <td class="productimgname">
+        <a href="{% url 'parcel_view' pc.id %}">{{pc.receiver_name}}</a>
+    </td>
+    <td>{{pc.awb}}</td>
+    <td>{{pc.order_number}}</td>
+    <td>{{pc.awb_pcs}}</td>
+    <td>{{pc.awb_kg}}</td>
+    <td>
+    <a class="me-3" href="{% url 'parcel_view' pc.id %}">
+    <img src="{% static 'assets/img/icons/edit.svg' %}" alt="img">
+    </a>
+  
+    <a class="confirm-text" href="{% url 'delete-awb' pc.id %}">
+    <img src="{% static 'assets/img/icons/delete.svg' %}" alt="img">
+    </a>
+    </td>
     </tr>
     {% endfor %}
     </tbody>
@@ -148,44 +236,4 @@
     </div>
 </div>
 {% endblock %}
-{% block script %}
-<script>
-    $(document).ready(function(){
-    $('#arrived_btn').click(function(){
-        if(confirm('Are you sure you want to load awb')){
-            var id =[]
-            $('#arrived_status:checked').each(function(i){
-                id[i] = $(this).val()
-            })
-            if(id.length === 0){
-                alert('please select item')
-            }else {
-                console.log(id)
-                $.ajax({
-                    type: 'POST',
-                    url: '/sifex/arrived/',
-                    data: {
-                        'csrfmiddlewaretoken': csrftoken,
-                        id,
-                        'status': $('#id_status').val(),
-                        'date': $('#id_date').val(),
-                        'time': $('#id_time').val(),
-                        'note': $('#id_note').val(),
-                        'terminal': $('#id_terminal').val(),
-                        
-                    },
-                    
-                    success: function(res){
-                        // console.log(res)
-                        window.location = '/sifex/parcel_import/'
-                    },
-                    error: function(err){
-                        console.log(err)
-                    }
-                });
-            }
-        }
-    })
-})
-</script>
-{% endblock %}
+{% block script %}{% endblock %}

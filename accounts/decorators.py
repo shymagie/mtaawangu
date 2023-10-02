@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 def authenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('console')
+            return redirect('mtendaji-dashibodi')
         else:
             return view_func(request, *args, **kwargs)
     return wrapper_func
@@ -31,14 +31,49 @@ def allowed_user(allowed_role=[]):
 def mtendaji_tu(view_func):
     def wrapper_func(request, *args, **kwargs):
         group = None
-        if request.user.group.exists():
-            group = request.user.group.all()[0].name
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
         if group == 'mjumbe' and request.user.is_active:
-            return redirect('reception_console')
+            return redirect('mjumbe-dashibodi')
         elif group == 'mwenyekiti' and request.user.is_active:
-            return redirect('office_console')
+            return redirect('mwenyekiti-dashibodi')
+        
         elif group == 'mtendaji' and request.user.is_active:
             return view_func(request, *args, **kwargs)
         else:
-            return redirect('login')
+            return redirect('ingia')
+    return wrapper_func
+
+
+
+def mwenyekiti_tu(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+        if group == 'mtendaji' and request.user.is_active:
+            return redirect('mtendaji-dashibodi')
+        elif group == 'mjumbe' and request.user.is_active:
+            return redirect('mjumbe-dashibodi')
+        elif group == 'mwenyekiti' and request.user.is_active:
+            return view_func(request, *args, **kwargs)
+        else:
+            return redirect('ingia')
+    return wrapper_func
+
+
+
+def mjumbe_tu(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+        if group == 'mtendaji' and request.user.is_active:
+            return redirect('mtendaji-dashibodi')
+        elif group == 'mwenyekiti' and request.user.is_active:
+            return redirect('mwenyekiti-dashibodi')
+        elif group == 'mjumbe' and request.user.is_active:
+            return view_func(request, *args, **kwargs)
+        else:
+            return redirect('ingia')
     return wrapper_func

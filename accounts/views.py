@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from accounts.decorators import authenticated_user, vendor_only
+from accounts.decorators import authenticated_user, mtendaji_tu
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
@@ -23,33 +23,33 @@ def UserLogin(request):
         
         if user is not None:
             login(request, user)
-            return redirect('console')
+            return redirect('mtendaji-dashibodi')
         else: 
             messages.info(request, 'Username or password is incorrect!')
-            return redirect('login')
-    context ={'office_lists': office_lists}
+            return redirect('ingia')
+    context ={}
     return render(request, 'auth/app_login.html', context)
 
 
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('ingia')
 
 
 
-class PasswordsChangeView(PasswordChangeView):
-    form_class = PasswordChangingForm
+# class PasswordsChangeView(PasswordChangeView):
+#     form_class = PasswordChangingForm
 
-    success_url = reverse_lazy('success_password')
+#     success_url = reverse_lazy('success_password')
 
-@login_required
-def success_page(request):
-    return render(request, 'partials/success_page.html', {})
+# @login_required
+# def success_page(request):
+#     return render(request, 'partials/success_page.html', {})
 
-@login_required
-def password_changed_success(request):
-    return render(request, 'partials/password_success_change.html', {})
+# @login_required
+# def password_changed_success(request):
+#     return render(request, 'partials/password_success_change.html', {})
 
 
 
