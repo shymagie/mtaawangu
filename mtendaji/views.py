@@ -32,8 +32,8 @@ def tuma_kwa_mtaa(request):
 @login_required
 @mtendaji_tu
 def tuma_kwa_kata(request):
-    mwenyekiti = request.user.mwenyekiti
-    kata_id = mwenyekiti.kata.id
+    mtendaji = request.user.mtendaji
+    kata_id = mtendaji.kata.id
     kata = Kata.objects.get(id=kata_id)
     context = {
         'kata': kata,
