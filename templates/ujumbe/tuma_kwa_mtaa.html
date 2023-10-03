@@ -31,7 +31,9 @@
                 <div class="form-group">
                 <label>Chagua Mtaa</label>
                   <select required name="mtaa" id="id_mtaa" class="form-control">
+                    {% for mtaa in mitaa %}
                     <option name="mtaa" value="{{mtaa}}" class="form-control">{{mtaa}}</option>
+                    {% endfor %}
                 </select>
                 </div>
             </div>
