@@ -79,6 +79,7 @@ urlpatterns = [
     path('staff-jumbe/tuma-ujumbe/', staff_views.tuma_ujumbe, name="staff-tuma-ujumbe"),
     path('staff-jumbe/orodha-ya-jumbe/', staff_views.orodha_ya_jumbe, name="staff-orodha-ya-jumbe"),
     path('staff-jumbe-zilizotumwa/', staff_views.orodha_ya_jumbe_zilizotumwa, name="staff-jumbe-zilizotumwa"),
+    path('staff-sajiri-mtendaji/<int:pk>/', staff_views.kusajiri_mtendaji, name="sajiri-mtendaji"),
 
 
 

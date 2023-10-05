@@ -159,7 +159,6 @@ def mtaa_na_ajax(request):
         kata_id = request.POST.get('kata_id')
         kata = Kata.objects.get(id=kata_id)
         mitaa = kata.mitaa_kata.all()
-        print(mitaa)
         data = []
         for obj in mitaa:
             item = {
@@ -177,7 +176,6 @@ def ubarozi_na_ajax(request):
         mtaa_id = request.POST.get('mtaa_id')
         mtaa = Mtaa.objects.get(id=mtaa_id)
         barozi = mtaa.barozi_mitaa.all()
-        print(barozi)
         data = []
         for obj in barozi:
             item = {
@@ -200,15 +198,20 @@ def hifadhi_mwananchi(request):
         kata_id = request.POST.get('kata')
         mtaa_id = request.POST.get('mtaa')
         ubarozi_id = request.POST.get('ubarozi')
+        jinsia = request.POST.get('jinsia')
 
         if not jina:
             messages.success(request, f'Tafadhali jaza jina')
             return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
+        
 
         if not nambari_ya_simu:
             messages.success(request, f'Tafadhali jaza nambari ya simu')
             return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
 
+        if ubarozi_id == '--------Chagua jinsia---------':
+            messages.success(request, f'Tafadhali chagua jinsia')
+            return render(request, 'wananchi/sajiri_mwananchi.html', {'mataifa': mataifa})
 
         if ubarozi_id == '--------Chagua ubarozi---------':
             messages.success(request, f'Tafadhali chagua ubarozi')
@@ -233,7 +236,7 @@ def hifadhi_mwananchi(request):
         mtaa = Mtaa.objects.get(id=mtaa_id)
         ubarozi = NyumbaKumi.objects.get(id=ubarozi_id)
 
-        mwananchi_data = Mwananchi.objects.create(jina=jina, nambari_ya_simu=nambari_ya_simu, nchi=nchi, mkoa=mkoa, wilaya=wilaya, kata=kata, mtaa=mtaa, barozi=ubarozi)
+        mwananchi_data = Mwananchi.objects.create(jina=jina, nambari_ya_simu=nambari_ya_simu, nchi=nchi, mkoa=mkoa, wilaya=wilaya, kata=kata, jinsia=jinsia, mtaa=mtaa, barozi=ubarozi)
         messages.success(request, f'{mwananchi_data} amesajiriwa kikamilifu')
         return redirect('sajiri-mwananchi')
 

@@ -82,12 +82,13 @@ def orodha_ya_jumbe_zilizotumwa(request):
 @login_required
 @mtendaji_tu
 def tuma_ujumbe_kwa_mtaa(request):
+    form = FomuYaKutumaUjumbe()
     if request.method == "POST":
         mtaa = request.POST.get('mtaa')
         mtaa = Mtaa.objects.filter(jina=mtaa)
         for obj in mtaa:
             mtaa = obj.id
-        form = FomuYaKutumaUjumbe()
+        
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(mtaa=mtaa)]))))
     return render(request, 'ujumbe/tuma_ujumbe.html', {'form': form})
 
@@ -97,12 +98,12 @@ def tuma_ujumbe_kwa_mtaa(request):
 @login_required
 @mtendaji_tu
 def tuma_ujumbe_kwa_kata(request):
+    form = FomuYaKutumaUjumbe()
     if request.method == "POST":
         kata = request.POST.get('kata')
         kata = Kata.objects.filter(jina=kata)
         for obj in kata:
             kata = obj.id
-        form = FomuYaKutumaUjumbe()
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(kata=kata)]))))
     return render(request, 'ujumbe/tuma_ujumbe.html', {'form': form})
 
@@ -112,12 +113,12 @@ def tuma_ujumbe_kwa_kata(request):
 @login_required
 @mtendaji_tu
 def tuma_ujumbe_kwa_barozi(request):
+    form = FomuYaKutumaUjumbe()
     if request.method == "POST":
         barozi = request.POST.get('barozi')
         barozi = NyumbaKumi.objects.filter(jina=barozi)
         for obj in barozi:
             barozi = obj.id
-        form = FomuYaKutumaUjumbe()
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(barozi=barozi)]))))
     return render(request, 'ujumbe/tuma_ujumbe.html', {'form': form})
 

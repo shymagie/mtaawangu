@@ -44,11 +44,10 @@
         <!-- MTAA WANGU STAFF ZONE -->
         {% if request.user.is_staff %}
         <li class="submenu">
-            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Ujumbe</span> <span class="menu-arrow"></span></a>
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Matangazo</span> <span class="menu-arrow"></span></a>
             <ul>
                 <li class=""><a href="{% url 'staff-orodha-ya-jumbe' %}"><span>jumbe zilizotumwa</span> </a></li>
                 <li class=""><a href="{% url 'staff-jumbe-zilizotumwa' %}"><span>jumbe zilizofanikiwa</span> </a></li>
-                <li class=""><a href=""><span>jumbe hazikufanikiwa</span> </a></li>
             </ul>
         </li>
 
