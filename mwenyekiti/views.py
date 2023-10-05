@@ -16,6 +16,7 @@ from ujumbe.fomu import FomuYaKutumaUjumbe
 @login_required
 @mwenyekiti_tu
 def dashboard(request):
+    print(request.user.mwenyekiti)
     return render(request, 'dashboard/mwenyekiti.html', {})
 
 @login_required
