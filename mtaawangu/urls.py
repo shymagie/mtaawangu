@@ -79,7 +79,18 @@ urlpatterns = [
     path('staff-jumbe/tuma-ujumbe/', staff_views.tuma_ujumbe, name="staff-tuma-ujumbe"),
     path('staff-jumbe/orodha-ya-jumbe/', staff_views.orodha_ya_jumbe, name="staff-orodha-ya-jumbe"),
     path('staff-jumbe-zilizotumwa/', staff_views.orodha_ya_jumbe_zilizotumwa, name="staff-jumbe-zilizotumwa"),
+   
     path('staff-sajiri-mtendaji/<int:pk>/', staff_views.kusajiri_mtendaji, name="sajiri-mtendaji"),
+    path('mtendaji-akaunti/', staff_views.mtendaji_registration, name="register-mtendaji"),
+    path('hifadhi-mtendaji/', staff_views.hifadhi_mtendaji, name="hifadhi-mtendaji"),
+
+    path('staff-sajiri-mwenyekiti/<int:pk>/', staff_views.kusajiri_mwenyekiti, name="sajiri-mwenyekiti"),
+    path('mwenyekiti-akaunti/', staff_views.mwenyekiti_registration, name="register-mwenyekiti"),
+    path('hifadhi-mwenyekiti/', staff_views.hifadhi_mwenyekiti, name="hifadhi-mwenyekiti"),
+
+    path('staff-sajiri-mjumbe/<int:pk>/', staff_views.kusajiri_mjumbe, name="sajiri-mjumbe"),
+    path('mjumbe-akaunti/', staff_views.mjumbe_registration, name="register-mjumbe"),
+    path('hifadhi-mjumbe/', staff_views.hifadhi_mjumbe, name="hifadhi-mjumbe"),
 
 
 

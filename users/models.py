@@ -81,6 +81,7 @@ class Mtendaji(models.Model):
     wilaya = models.ForeignKey('Wilaya', on_delete=models.CASCADE, null=True, blank=True, related_name="mtendaji_wilaya")
     mkoa = models.ForeignKey('Mkoa', on_delete=models.CASCADE, null=True, blank=True, related_name="mtendaji_mkoa")
     nchi = models.ForeignKey('Nchi', on_delete=models.CASCADE, null=True, blank=True, related_name="mtendaji_nchi")
+    barozi = models.ForeignKey('NyumbaKumi', on_delete=models.CASCADE, null=True, blank=True, related_name="mtendaji_ubarozi")
 
     class Meta:
         verbose_name_plural = 'Watendaji'
@@ -101,8 +102,8 @@ class Mwenyekiti(models.Model):
     wilaya = models.ForeignKey('Wilaya', on_delete=models.CASCADE, null=True, blank=True, related_name="mwenyekiti_wilaya")
     kata = models.ForeignKey('Kata', on_delete=models.CASCADE, null=True, blank=True, related_name="mwenyekiti_kata")
     mtaa = models.ForeignKey('Mtaa', on_delete=models.CASCADE, null=True, blank=True, related_name="mwenyekiti_mtaa")
-    nyumba_kumi = models.ForeignKey('NyumbaKumi', on_delete=models.CASCADE, null=True, blank=True, related_name="mwenyekiti_nyumba_kumi")
-
+    barozi = models.ForeignKey('NyumbaKumi', on_delete=models.CASCADE, null=True, blank=True, related_name="mwenyekiti_nyumba_kumi")
+    
     class Meta:
         verbose_name_plural = 'Wenyeviti'
 

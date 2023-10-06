@@ -27,7 +27,7 @@
                         {{form.as_p}}
                       <span class="message-counter" id="message-counter">160</span>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-3" id="send-sms-btn">Tuma Ujumbe</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-3 disabled" id="send-sms-btn">Tuma Ujumbe</button>
                  </form>
               </div>
           </div>
@@ -75,7 +75,7 @@
             sendSMSBTNSet.classList.remove('disabled')
         }else {
             sendSMSBTNSet.classList.add('disabled')
-            sendSMSBTNSet.textContent = 'tafadhari angalia mtandao wako ili kutuma sms'
+            sendSMSBTNSet.textContent = 'offline'
         }
     }
 

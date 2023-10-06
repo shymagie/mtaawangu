@@ -15,6 +15,14 @@
                 <li class=""><a href=""><span>jumbe hazikufanikiwa</span> </a></li>
             </ul>
         </li>
+
+        <li class="submenu">
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Vitendea kazi</span> <span class="menu-arrow"></span></a>
+            <ul>
+                <li class=""><a href="{% url 'register-mwenyekiti' %}"><span>Sajiri mwenyekiti</span> </a></li>
+                <li class=""><a href="{% url 'register-mjumbe' %}"><span>Sajiri mjumbe</span> </a></li>
+            </ul>
+        </li>
         {% endif %}
 
         <!-- MWENYEKITI ZONE -->
@@ -25,6 +33,12 @@
                 <li class=""><a href="{% url 'mwenyekiti-orodha-ya-jumbe' %}"><span>jumbe zilizotumwa</span> </a></li>
                 <li class=""><a href="{% url 'mwenyekiti-jumbe-zilizotumwa' %}"><span>jumbe zilizofanikiwa</span> </a></li>
                 <li class=""><a href=""><span>jumbe hazikufanikiwa</span> </a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Vitendea kazi</span> <span class="menu-arrow"></span></a>
+            <ul>
+                <li class=""><a href="{% url 'register-mjumbe' %}"><span>Sajiri mjumbe</span> </a></li>
             </ul>
         </li>
         {% endif %}
@@ -39,6 +53,7 @@
                 <li class=""><a href=""><span>jumbe hazikufanikiwa</span> </a></li>
             </ul>
         </li>
+
         {% endif %}
 
         <!-- MTAA WANGU STAFF ZONE -->
@@ -54,12 +69,15 @@
         <li class="submenu">
             <a href="javascript:void(0);"><img src="{% static 'assets/img/icons/dashboard.svg' %}" alt="img"><span> Vitendea kazi</span> <span class="menu-arrow"></span></a>
             <ul>
-                <li class=""><a href="#"><span>Sajiri Nchi</span> </a></li>
-                <li class=""><a href="{% url 'sajiri-mkoa' %}"><span>Sajiri Mkoa</span> </a></li>
-                <li class=""><a href="#"><span>Sajiri Wilaya</span> </a></li>
-                <li class=""><a href="#"><span>Sajiri Tarafa</span> </a></li>
+                <!-- <li class=""><a href="#"><span>Sajiri Nchi</span> </a></li> -->
+                <!-- <li class=""><a href="{% url 'sajiri-mkoa' %}"><span>Sajiri Mkoa</span> </a></li> -->
+                <!-- <li class=""><a href="#"><span>Sajiri Wilaya</span> </a></li> -->
+                <!-- <li class=""><a href="#"><span>Sajiri Tarafa</span> </a></li> -->
                 <li class=""><a href="{% url 'sajiri-kata' %}"><span>Sajiri Kata</span> </a></li>
-                <li class=""><a href=""><span>Sajiri Mtaa</span> </a></li>
+                <!-- <li class=""><a href=""><span>Sajiri Mtaa</span> </a></li> -->
+                <li class=""><a href="{% url 'register-mtendaji' %}"><span>Sajiri mtendaji</span> </a></li>
+                <li class=""><a href="{% url 'register-mwenyekiti' %}"><span>Sajiri mwenyekiti</span> </a></li>
+                <li class=""><a href="{% url 'register-mjumbe' %}"><span>Sajiri mjumbe</span> </a></li>
             </ul>
         </li>
         {% endif %}
