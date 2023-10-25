@@ -23,6 +23,7 @@ from ujumbe import views as ujumbe_views
 from mwenyekiti import views as mwenyekiti_views
 from mjumbe import views as mjumbe_views
 from staff import views as staff_views
+from accounts import views as accounts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -119,6 +120,13 @@ urlpatterns = [
 
 
     path('accounts/', include('accounts.urls')),
+
+    path('404/', accounts_views.not_found, name='404'),
+
+    path('password-change/', accounts_views.PasswordsChangeView.as_view(template_name="settings/password_change.html"), name="change_password"),
+    path('success/', accounts_views.success_page, name="success_page"),
+    path('password_changed_success/', accounts_views.password_changed_success, name="success_password"),
+
 ]
 
 

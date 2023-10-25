@@ -153,3 +153,11 @@ class Mwananchi(models.Model):
 
     def __str__(self):
         return self.jina
+
+
+
+
+
+
+class Sponsor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -23,22 +23,51 @@
 <div class="card">
 <div class="card-body">
     {% include 'partials/_messages.html' %}
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+            <label>Nchi</label>
+              <select required id="id_nchi" class="form-control">
+              {% for nchi in mataifa %}
+                <option value="{{nchi.id}}" class="form-control">{{nchi}}</option>
+              {% endfor %}
+            </select>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+            <label>Mkoa</label>
+                <select required id="id_mkoa" class="form-control">
+                    <option value="" id="chagua-mkoa">-------chagua mkoa-------</option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+            <label>Wilaya</label>
+                <select id="id_wilaya" class="form-control">
+                    <option value="" class="disabled" id="chagua-wilaya">------chagua wilaya------</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <form action="{% url 'staff-tuma-ujumbe-kwa-kata' %}" method="post">
         {% csrf_token %}
         <div class="row">
-
             <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                 <label>Chagua Kata</label>
-                  <select required name="kata" id="id_kata" class="form-control">
-                    {% for obj in kata %}
-                    <option name="kata" value="{{obj}}" class="form-control">{{obj}}</option>
-                    {% endfor %}
+                  <select name="kata" id="id_kata" class="form-control">
+                    <option value="------chagua kata------" class="disabled" id="chagua-kata">------chagua kata------</option>
                 </select>
                 </div>
             </div>
-           
-        </div>
         <div class="row">
             <div class="col-lg-12 col-sm-12">
                 <button type="submit" class="btn btn-submit me-2">ENDELEA</button>
@@ -50,6 +79,174 @@
 {% endblock content %}
 {% block script %}
 <script>
-  
+    const mikoa_input = document.getElementById('id_mkoa');
+    const wilaya_input = document.getElementById('id_wilaya');
+    const chaguaWilaya = document.getElementById('chagua-wilaya');
+
+   
+    const kata_input = document.getElementById('id_kata');
+    const chaguaKata= document.getElementById('chagua-kata');
+    const mtaa_input = document.getElementById('id_mtaa');
+    const ubarozi_input = document.getElementById('id_ubarozi');
+
+    $.ajax({
+    type: 'POST',
+    url: '/mikoa-na-ajax/',
+    data: {
+        'csrfmiddlewaretoken': csrftoken,
+        nchi_id: $('#id_nchi').val()
+    },
+    success: function (res){
+        mikoa = res.mikoa
+        mikoa.map(mkoa => {
+            mikoa_input.innerHTML += `
+                <option name="mkoa" value="${mkoa.id}" class="form-control">${mkoa.jina}</option>
+            `
+        });
+
+    },
+    error: function (err){console.log(err)}
+})
+
+
+mikoa_input.addEventListener('change', function(e){
+        console.log(e.target.value)
+        let mikoaId = e.target.value
+        wilaya_input.innerHTML = "";
+        const title = document.createElement('option')
+        title.textContent = "--------Chagua wilaya---------"
+        wilaya_input.appendChild(title)
+        $.ajax({
+        type: 'POST',
+        url: '/wilaya-na-ajax/',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            mkoa_id: $('#id_mkoa').val(),
+        },
+        success: function (res){
+            data = res.wilaya
+            console.log(data)
+            data.map(wilaya => {
+                const option = document.createElement('option');
+                option.textContent = wilaya.jina;
+                option.setAttribute('class', 'form-control');
+                option.setAttribute('value', wilaya.id)
+                option.setAttribute('name','wilaya')
+                wilaya_input.appendChild(option)
+            });
+
+
+        },
+        error: function (err){console.log(err)}
+    });
+    });
+
+
+    wilaya_input.addEventListener('change', function(e){
+        let mikoaId = e.target.value
+        kata_input.innerHTML = "";
+        const title = document.createElement('option')
+        title.textContent = "--------Chagua kata---------"
+        kata_input.appendChild(title)
+        $.ajax({
+        type: 'POST',
+        url: '/kata-na-ajax/',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            wilaya_id: $('#id_wilaya').val(),
+        },
+        success: function (res){
+            data = res.kata
+            console.log(data)
+            data.map(kata => {
+                const option = document.createElement('option');
+                option.textContent = kata.jina;
+                option.setAttribute('class', 'form-control');
+                option.setAttribute('value', kata.id)
+                option.setAttribute('name','kata')
+                kata_input.appendChild(option)
+            });
+
+
+        },
+        error: function (err){console.log(err)}
+    });
+    });
+
+
+
+
+    kata_input.addEventListener('change', function(e){
+        console.log(e.target.value)
+        let mikoaId = e.target.value
+        mtaa_input.innerHTML = "";
+        const title = document.createElement('option')
+        title.textContent = "--------Chagua mtaa---------"
+        mtaa_input.appendChild(title)
+        $.ajax({
+        type: 'POST',
+        url: '/mtaa-na-ajax/',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            kata_id: $('#id_kata').val(),
+        },
+        success: function (res){
+            data = res.mitaa
+            console.log(data)
+            data.map(mtaa => {
+                const option = document.createElement('option');
+                option.textContent = mtaa.jina;
+                option.setAttribute('class', 'form-control');
+                option.setAttribute('value', mtaa.id)
+                option.setAttribute('name','mtaa')
+                mtaa_input.appendChild(option)
+            });
+
+
+        },
+        error: function (err){console.log(err)}
+    });
+    });
+    
+
+
+
+    
+    mtaa_input.addEventListener('change', function(e){
+        console.log(e.target.value)
+        let mikoaId = e.target.value
+        ubarozi_input.innerHTML = "";
+        const title = document.createElement('option')
+        title.textContent = "--------Chagua ubarozi---------"
+        ubarozi_input.appendChild(title)
+        $.ajax({
+        type: 'POST',
+        url: '/ubarozi-na-ajax/',
+        data: {
+            'csrfmiddlewaretoken': csrftoken,
+            mtaa_id: $('#id_mtaa').val(),
+        },
+        success: function (res){
+            data = res.barozi
+            console.log(data)
+            data.map(ubarozi => {
+                const option = document.createElement('option');
+                option.textContent = ubarozi.jina;
+                option.setAttribute('class', 'form-control');
+                option.setAttribute('value', ubarozi.id)
+                option.setAttribute('name','ubarozi')
+                ubarozi_input.appendChild(option)
+            });
+
+
+        },
+        error: function (err){console.log(err)}
+    });
+    });
+    
+
+
+
+
 </script>
 {% endblock %}

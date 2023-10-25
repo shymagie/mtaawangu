@@ -7,13 +7,37 @@ from users.models import (
 
 
 
+class MaeneoYaTangazo(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True)
+    orodha_ya_kutangazia = models.CharField(max_length=400, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.title}'
+        
 class Tangazo(models.Model):
-    pass
+    CHAGUA_WALENGWA = (
+        ('wote', 'wote'),
+        ('wanaume', 'wanaume'),
+        ('wanawake', 'wanawake'),
+    )
+    title = models.CharField(max_length=255, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="ujumbe_wa_tangazo_user")
+    ujumbe = models.TextField(null=True)
+    date_created = models.DateTimeField(auto_now=True)
+    kwa_ajili_ya = models.CharField(max_length=50, null=True, choices=CHAGUA_WALENGWA)
+    ukanda_gani = models.CharField(max_length=420, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name_plural = 'Matangazo'
+
 
 
 class UjumbeWaTangazo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="tangazo_user")
-    ujumbe = models.TextField()
+    ujumbe = models.ForeignKey(Tangazo, on_delete=models.CASCADE, null=True)
     eneo = models.CharField(max_length=255, null=True)
     wapokeaji = models.CharField(max_length=80, null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True)

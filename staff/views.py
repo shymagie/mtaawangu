@@ -11,7 +11,7 @@ from users.models import (
 )
 from staff import models as tangazo_models
 from accounts.decorators import allowed_user, staff_tu
-from ujumbe.fomu import FomuYaKutumaUjumbe
+from staff.fomu import FomuYaKutumaTangazo
 
 
 @login_required
@@ -22,18 +22,18 @@ def dashboard(request):
 @login_required
 @staff_tu
 def tuma_kwa_mtaa(request):
-    mitaa = Mtaa.objects.all()
+    nchi = Nchi.objects.all()
     context = {
-        'mitaa': mitaa,
+        'mataifa': nchi,
     }
     return render(request, 'staff/tuma_kwa_mtaa.html', context)
 
 @login_required
 @staff_tu
 def tuma_kwa_kata(request):
-    kata = Kata.objects.all()
+    nchi = Nchi.objects.all()
     context = {
-        'kata': kata,
+        'mataifa': nchi,
     }
     return render(request, 'staff/tuma_kwa_kata.html', context)
 
@@ -41,9 +41,9 @@ def tuma_kwa_kata(request):
 @login_required
 @staff_tu
 def tuma_kwa_barozi(request):
-    barozi = NyumbaKumi.objects.all()
+    nchi = Nchi.objects.all()
     context = {
-        'barozi': barozi,
+        'mataifa': nchi,
     }
     return render(request, 'staff/tuma_kwa_barozi.html', context)
 
@@ -73,10 +73,10 @@ def orodha_ya_jumbe_zilizotumwa(request):
 def tuma_ujumbe_kwa_mtaa(request):
     if request.method == "POST":
         mtaa = request.POST.get('mtaa')
-        mtaa = Mtaa.objects.filter(jina=mtaa)
-        for obj in mtaa:
-            mtaa = obj.id
-        form = FomuYaKutumaUjumbe()
+        if mtaa == '------chagua mtaa------':
+            return redirect('staff-tuma-kwa-mtaa')
+        mtaa = Mtaa.objects.get(id=mtaa)
+        form = FomuYaKutumaTangazo()
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(mtaa=mtaa)]))))
     return render(request, 'staff/tuma_ujumbe.html', {'form': form})
 
@@ -87,10 +87,10 @@ def tuma_ujumbe_kwa_mtaa(request):
 def tuma_ujumbe_kwa_kata(request):
     if request.method == "POST":
         kata = request.POST.get('kata')
-        kata = Kata.objects.filter(jina=kata)
-        for obj in kata:
-            kata = obj.id
-        form = FomuYaKutumaUjumbe()
+        if kata == '------chagua kata------':
+            return redirect('staff-tuma-kwa-kata')
+        kata = Kata.objects.get(id=kata)
+        form = FomuYaKutumaTangazo()
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(kata=kata)]))))
     return render(request, 'staff/tuma_ujumbe.html', {'form': form})
 
@@ -99,11 +99,11 @@ def tuma_ujumbe_kwa_kata(request):
 @staff_tu
 def tuma_ujumbe_kwa_barozi(request):
     if request.method == "POST":
-        barozi = request.POST.get('barozi')
-        barozi = NyumbaKumi.objects.filter(jina=barozi)
-        for obj in barozi:
-            barozi = obj.id
-        form = FomuYaKutumaUjumbe()
+        barozi_id = request.POST.get('ubarozi')
+        if barozi_id == '------chagua ubarozi------':
+            return redirect('staff-tuma-kwa-barozi')
+        barozi = NyumbaKumi.objects.get(id=barozi_id)
+        form = FomuYaKutumaTangazo()
         form.fields['wapokeaji'].initial = ','.join(list(set(map(str, [active.nambari_ya_simu for active in Mwananchi.objects.filter(barozi=barozi)]))))
     return render(request, 'staff/tuma_ujumbe.html', {'form': form})
 
@@ -115,7 +115,7 @@ def tuma_ujumbe_kwa_barozi(request):
 def tuma_ujumbe(request):
     response = {}
     if request.method == "POST":
-        form = FomuYaKutumaUjumbe(request.POST)
+        form = FomuYaKutumaTangazo(request.POST)
         wapokeaji = request.POST.get('wapokeaji')
         ujumbe = request.POST.get('ujumbe')
        
@@ -191,6 +191,9 @@ def mtendaji_registration(request):
             pass 
         if not last_name:
             pass
+        # if User.objects.get(username=username).exists():
+        #     messages.success(request, 'Jina limeshatumika, tafadhali chagua jina jingine')
+        #     return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         group = Group.objects.get(name='mtendaji')
         if password1 == password2:
             user = User.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
@@ -220,6 +223,9 @@ def mwenyekiti_registration(request):
             pass 
         if not last_name:
             pass
+        if User.objects.get(username=username).exists():
+            messages.success(request, 'Jina limeshatumika, tafadhali chagua jina jingine')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         group = Group.objects.get(name='mwenyekiti')
         if password1 == password2:
             user = User.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
@@ -238,17 +244,26 @@ def mjumbe_registration(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         if not username:
-            pass
+            messages.success(request, 'tafadhali jaza jina la mtumiaji')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         if not email:
-            pass 
+            messages.success(request, 'tafadhali jaza barua pepe')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         if not password1:
-            pass 
+            messages.success(request, 'tafadhali jaza nywila')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html') 
         if not password2:
-            pass
+            messages.success(request, 'tafadhali rudia nywila')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         if not first_name:
-            pass 
+            messages.success(request, 'tafadhali jaza jina la kwanzo')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html') 
         if not last_name:
-            pass
+            messages.success(request, 'tafadhali jaza jina la mwisho')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
+        if User.objects.get(username=username).exists():
+            messages.success(request, 'Jina la mtumiaji limeshatumika, tafadhali chagua jina jingine')
+            return render(request, 'staff/usajiri/mtendaji-sign-up.html')
         group = Group.objects.get(name='mjumbe')
         if password1 == password2:
             user = User.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
@@ -465,3 +480,29 @@ def hifadhi_mjumbe(request):
         mjumbe_data = Mjumbe.objects.create(jina=jina, mwenyekiti=mwenyekiti, mtendaji=mtendaji, user=user, nambari_ya_simu=nambari_ya_simu, nchi=nchi, mkoa=mkoa, wilaya=wilaya, kata=kata, jinsia=jinsia, mtaa=mtaa, barozi=ubarozi)
         messages.success(request, f'{mjumbe_data} amesajiriwa kikamilifu')
         return redirect('staff-dashibodi')
+
+
+
+
+
+
+def sponsor_register(request):
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if not first_name:
+            pass 
+
+        if not last_name:
+            pass 
+        if not email:
+            pass
+        if not password1:
+            pass
+
+        if password1 == password2:
+            user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password1)
